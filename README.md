@@ -25,3 +25,47 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+# Informações do Estudo
+
+## Projeto completo no git
+https://github.com/plinionaves/angular-graphcool-chat
+
+## criando projeto
+`ng new nomeProjeto --style=scss`
+___
+## Doc do AngularCLI
+https://cli.angular.io/
+
+https://github.com/angular/angular-cli
+
+https://github.com/angular/angular-cli/wiki
+___
+
+## para abrir vscode dentro da pasta
+```sh
+code .
+```
+***
+### instalando o angular Material 6.0
+```sh
+ng add @angular/material@6.0.1
+```
+
+#### poderá ser necessário instalar outros pacotes se solicitado na instalação acima
+
+```sh
+ng add @angular/cdk@6.0.1
+```
+```sh
+ng add @angular/core@>=6.0.0-beta.0
+```
+```sh
+ng add @angular/common@>=6.0.0-beta.0
+```
+
+### Para ultima versão acessar - [**clique aqui para link do Angular Material**](https://material.angular.io/guide/getting-started)
+***
+
+

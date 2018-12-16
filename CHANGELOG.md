@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/denissoliveira/angular-graphcool-chat/compare/v0.1.0...v0.2.0) (2018-12-16)
+
+
+### Features
+
+* Criando novo projeto no Graphcool ([46128f5](https://github.com/denissoliveira/angular-graphcool-chat/commit/46128f5))
+* Relacionamento entidades do chat no Graphcool ([e832713](https://github.com/denissoliveira/angular-graphcool-chat/commit/e832713))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2018-12-15)
 

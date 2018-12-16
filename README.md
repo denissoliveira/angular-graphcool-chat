@@ -67,5 +67,43 @@ ng add @angular/common@>=6.0.0-beta.0
 
 ### Para ultima versão acessar - [**clique aqui para link do Angular Material**](https://material.angular.io/guide/getting-started)
 ***
+### ChangeLog 
+`npm i -g standard-version` ou `npm i --save-dev standard-version`
 
+#### Add an npm run script to your package.json:
 
+```json
+{
+  "scripts": {
+    "release": "standard-version"
+  }
+}
+```
+```json
+"release": "standard-version",
+"release-as": "npm run release -- --release-as 0.0.0"
+```
+Mais em https://github.com/conventional-changelog/standard-version/blob/master/README.md
+***
+### GHAPHCOOL: BAAS Baseado no GhaphQL
+
+Dcumentação Oficial: https://graphql.org/ <br/>
+Referências: https://www.howtographql.com/ <br/>
+Apollo GraphQL: https://www.apollographql.com/ <br/>
+Blog Apollo Data: https://blog.apollographql.com/ <br/>
+
+Arquitetura graphcool: https://www.graph.cool/docs/concepts/overview/graphql-backend-architecture-thei2kephu/ <br/>
+
+Instalando GraphCool: 
+```sh
+npm i -g graphcool
+```
+Criando projeto:
+```sh
+graphcool init graphcool
+```
+
+Fazendo deploy (gcf é abreviação de graphcool)
+```sh
+gcf deploy
+```

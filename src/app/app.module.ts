@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 import { MatToolbarModule, MatListModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { ApolloConfigModule } from './apollo-config/apollo-config.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
+    ApolloConfigModule,
     HttpClientModule,
     MatListModule,
     MatToolbarModule

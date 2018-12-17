@@ -107,3 +107,24 @@ Fazendo deploy (gcf é abreviação de graphcool)
 ```sh
 gcf deploy
 ```
+***
+### instalação do apollo e graphql
+Apollo Client (o -S é para salvar no package.json e -E para salvar as verções exatas):
+```sh
+ npm i -S -E apollo-angular@1.1.1 apollo-angular-link-http@1.1.0 apollo-client@2.3.5 apollo-cache-inmemory@1.2.5 graphql-tag@2.9.2
+```
+
+
+Se já tiver lançado a versão 0.13.3 (pode ser a 0.14.x):
+```sh
+ npm i -S -E graphql@14.0.2
+```
+Se ainda não:
+```sh
+ npm i -S graphql@git://github.com/graphql/graphql-js.git#npm
+```
+
+Atualizar devkit (somente se estiver abaixo de 0.6.2):
+```sh
+ npm i -D -E @angular-devkit/build-angular@0.6.3
+ ```

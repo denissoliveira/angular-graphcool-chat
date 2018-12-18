@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +10,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
-  private apiURL = 'https://api.graph.cool/simple/v1/cjpr7zirvmj2p0172uqx5c7oe';
-
   constructor(
+    private apollo: Apollo,
     private http: HttpClient
   ) {
-    this.createUser();
+    // this.createUser();
     this.allUsers();
   }
 
   allUsers(): void {
-    const body = {
-      query: `
+    this.apollo.query({
+      query: gql`
         query {
           allUsers {
             id
@@ -28,31 +29,26 @@ export class AppComponent {
           }
         }
       `
-    };
-
-    this.http.post(this.apiURL, body)
-    .subscribe(res => console.log('Query: ', JSON.stringify(res)));
+    }).subscribe(res => console.log('Query: ', res));
   }
 
   createUser(): void {
-    const body = {
-      query: `
-      mutation CreateNewUser($name: String!, $email: String!, $password: String) {
-        createUser(name: $name, email: $email, password: $password) {
-          id
-          name
-          email
+      this.apollo.mutate({
+        mutation: gql`
+          mutation CreateNewUser($name: String!, $email: String!, $password: String!) {
+            createUser(name: $name, email: $email, password: $password) {
+              id
+              name
+              email
+            }
+          }
+        `,
+        variables: {
+          name: 'IRON mAN',
+          email: 'ironman@avengers.com',
+          password: '1234567'
         }
-      }
-      `,
-      variables: {
-        name: 'Black Panther',
-        email: 'panther@avengers.com',
-        password: '123456'
-      }
-    };
-    this.http.post(this.apiURL, body)
-    .subscribe(res => console.log('Mutation: ', JSON.stringify(res)));
+      }).subscribe(res => console.log('Mutation: ', res));
   }
 
 }

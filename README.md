@@ -108,12 +108,12 @@ Fazendo deploy (gcf é abreviação de graphcool)
 gcf deploy
 ```
 ***
+# Apollo
 ### instalação do apollo e graphql
 Apollo Client (o -S é para salvar no package.json e -E para salvar as verções exatas):
 ```sh
- npm i -S -E apollo-angular@1.1.1 apollo-angular-link-http@1.1.0 apollo-client@2.3.5 apollo-cache-inmemory@1.2.5 graphql-tag@2.9.2
+ npm i -S -E apollo-angular apollo-angular-link-http apollo-client apollo-cache-inmemory graphql-tag
 ```
-
 
 Se já tiver lançado a versão 0.13.3 (pode ser a 0.14.x):
 ```sh
@@ -128,3 +128,15 @@ Atualizar devkit (somente se estiver abaixo de 0.6.2):
 ```sh
  npm i -D -E @angular-devkit/build-angular@0.6.3
  ```
+***
+
+### extensão no chrome
+https://github.com/apollographql/apollo-client-devtools
+<br/>
+`https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm'
+
+### Apollo manipulando Error
+instalação de pacotes
+```sh
+npm i -S -E apollo-link apollo-link-error
+```

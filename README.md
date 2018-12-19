@@ -140,3 +140,10 @@ instalação de pacotes
 ```sh
 npm i -S -E apollo-link apollo-link-error
 ```
+
+### Graphcool templates
+template de autenticação
+```sh
+gcf add-template auth/email-password
+```
+

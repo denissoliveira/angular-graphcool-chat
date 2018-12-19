@@ -1,8 +1,12 @@
+# esse tipo é transient
+# mutation em baixo,quando é executada ele retorna o type abaixo transient
 type SignupUserPayload {
   id: ID!
   token: String!
 }
 
+# adicionando uma nova mutation, pega todas e adiciona esta
+# este cria um novo usuário
 extend type Mutation {
-  signupUser(email: String!, password: String!): SignupUserPayload
+  signupUser(name: String!, email: String!, password: String!): SignupUserPayload
 }

@@ -6,6 +6,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { environment } from 'src/environments/environment';
 import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,7 @@ export class ApolloConfigModule {
     // como a variavel tem o mesmo nome não repcisa ser { uri:uri }
     const http = httpLink.create({ uri });
 
-    const link = onError(({ graphQLErrors, networkError }) => {
+    const linkError = onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
         graphQLErrors.map(({ message, locations, path }) =>
           console.log(
@@ -39,9 +40,12 @@ export class ApolloConfigModule {
       }
     });
 
-    // configuração do apollo
+    // configuração do apollo. ApolloLink fa o encadeamento de apollolinks
     apollo.create({
-      link: http,
+      link: ApolloLink.from([
+        linkError,
+        http
+      ]),
       cache: new InMemoryCache({ dataIdFromObject: object => object['id'] || defaultDataIdFromObject(object) }),
       // conecta com plugin do chrome do apollo, por default já esta true e false em produção
       connectToDevTools: !environment.production

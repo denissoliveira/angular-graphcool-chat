@@ -140,3 +140,9 @@ instalação de pacotes
 ```sh
 npm i -S -E apollo-link apollo-link-error
 ```
+
+#CoreModule
+Mostra as aterações sem executa-las
+```sh
+ng g m core --dryRun
+```

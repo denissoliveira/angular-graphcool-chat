@@ -49,18 +49,70 @@ functions:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
 
-  # permissão para usuários não autenticados
+  # User - permissão para usuários não autenticados
   - operation: User.read
     fields: [id, password]
   - operation: User.create
     fields: [name, email, password]
 
-  # permissão para usuário autenticados
+  # User - permissão para usuário autenticados
   - operation: User.read
     authenticated: true
   - operation: User.update
     authenticated: true
   - operation: User.delete
+    authenticated: true
+
+  # Chat - permissão para usuário autenticados
+  - operation: Chat.read
+    authenticated: true
+  - operation: Chat.create
+    authenticated: true
+  - operation: Chat.update
+    authenticated: true
+  - operation: Chat.delete
+    authenticated: true
+
+  # Message - permissão para usuário autenticados
+  - operation: Message.read
+    authenticated: true
+  - operation: Message.create
+    authenticated: true
+  - operation: Message.update
+    authenticated: true
+  - operation: Message.delete
+    authenticated: true
+
+  # File - permissão para usuário autenticados
+  - operation: File.read
+    authenticated: true
+  - operation: File.create
+    authenticated: true
+  - operation: File.update
+    authenticated: true
+  - operation: File.delete
+    authenticated: true
+
+  # Relacionamentos
+  - operation: UsersOnChats.connect
+    authenticated: true
+  - operation: UsersOnChats.disconnect
+    authenticated: true
+
+  - operation: MessagesOnChat.connect
+    authenticated: true
+
+  - operation: MessagesOnUser.connect
+    authenticated: true
+
+  - operation: UserPhoto.connect
+    authenticated: true
+  - operation: UserPhoto.disconnect
+    authenticated: true
+
+  - operation: ChatPhoto.connect
+    authenticated: true
+  - operation: ChatPhoto.disconnect
     authenticated: true
 
 #User.* - esta liberado para qualquer operação

@@ -1,0 +1,9 @@
+# Somente User poderar fazer modificação em si mesmo
+query permitUser($user_id: ID!, $node_id: ID!) {
+  SomeUserExists(filter: {
+    AND: [
+      { id: $user_id},
+      { id: $node_id}
+    ]
+  })
+}

@@ -147,3 +147,8 @@ template de autenticação
 gcf add-template auth/email-password
 ```
 
+### Angular comandos
+Cria un modulo já com rotiamento
+```sh
+ng g m nome --routing
+```

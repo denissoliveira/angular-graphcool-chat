@@ -1,5 +1,4 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { MatToolbarModule, MatListModule } from '@angular/material';
 import { ApolloConfigModule } from '../apollo-config/apollo-config.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../app-routing.module';
@@ -8,9 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
   exports : [
     AppRoutingModule,
     BrowserAnimationsModule,
-    ApolloConfigModule,
-    MatListModule,
-    MatToolbarModule
+    ApolloConfigModule
   ]
 }) // tipo singleton
 export class CoreModule {

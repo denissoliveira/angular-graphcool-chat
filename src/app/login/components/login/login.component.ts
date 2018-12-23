@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   private nameControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -27,12 +29,18 @@ export class LoginComponent implements OnInit {
   createForm(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]]
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit(): void {
     console.log(this.loginForm.value);
+    const operation = (this.configs.isLogin)
+      ? this.authService.signinUser(this.loginForm.value)
+      : this.authService.signupUser(this.loginForm.value);
+    operation.subscribe( res => {
+      console.log('Redirecionando...', res);
+    });
   }
 
   changeAction(): void {

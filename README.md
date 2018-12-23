@@ -152,3 +152,8 @@ Cria un modulo já com rotiamento
 ```sh
 ng g m nome --routing
 ```
+
+s de service
+```sh
+ng g s nome --spec=false
+```

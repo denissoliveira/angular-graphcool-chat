@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { takeWhile } from 'rxjs/operators';
+import { ErrorService } from 'src/app/core/services/error.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
+    private errorService: ErrorService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -47,7 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe( res => {
         console.log('Redirecionando...', res);
       },
-      err => {},
+      err => {
+        this.errorService.getErrorMessage(err);
+      },
       () => console.log('Observable completed!')
       );
   }

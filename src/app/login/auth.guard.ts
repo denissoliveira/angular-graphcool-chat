@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, CanActivateChild, CanLoad, Route } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, CanActivateChild, CanLoad, Router, Route } from '@angular/router';
 import { LoginRoutingModule } from './login-routing.module';
 import { AuthService } from '../core/services/auth.service';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: LoginRoutingModule
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.authService.isAuthenticated;
+    return this.checkAuthState();
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -22,8 +23,17 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   canLoad(route: Route): Observable<boolean> {
+    return this.checkAuthState()
+      .pipe(take(1)); // take executa somente uma vez
+  }
+
+  private checkAuthState(): Observable<boolean> {
     return this.authService.isAuthenticated
-      .pipe(take(1));
+      .pipe(
+        tap(is => {
+          this.router.navigate(['/login']);
+        })
+      );
   }
 
 }

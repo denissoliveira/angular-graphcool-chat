@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createForm();
+    const userData = this.authService.getRememberMe();
+    if (userData) {
+      this.email.setValue(userData.email);
+      this.password.setValue(userData.password);
+    }
   }
 
   createForm(): void {
@@ -55,6 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe( res => {
         console.log('Redirecionando...', res);
+        this.authService.setRememberMe(this.loginForm.value);
         const redirect: string = this.authService.redirectUrl || '/dashboard';
         // redirect with router
         console.log('route to redirect: ', redirect);
@@ -85,6 +91,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   // manter logado
   onKeepSigned(): void {
     this.authService.toggleKeepSigned();
+  }
+
+  /**
+   * Salva dados para login (não seguro)
+   */
+  onRememberMe(): void {
+    this.authService.toggleRememberMe();
   }
 
   // para tomar cuidado de fechar todos os observable

@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION, LoggedInUserQuery, LOGGED_IN_USER_QUERY } from './auth.graphql';
 import { StorageKeys } from 'src/app/storage-keys';
 import { Router } from '@angular/router';
+import { Base64 } from 'js-base64';
 
 /**
  * Classe de autenticação
@@ -17,6 +18,7 @@ export class AuthService {
 
   redirectUrl: string;
   keepSigned: boolean;
+  rememberMe: boolean;
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
   constructor(
@@ -28,10 +30,11 @@ export class AuthService {
   }
 
   /**
-   * Método que verifica se usuário optou por se manter logado
+   * Método que verifica se usuário optou por se manter logado, e se que salva email para login
    */
   init(): void {
     this.keepSigned = JSON.parse(window.localStorage.getItem(StorageKeys.KEEP_SIGNED));
+    this.rememberMe = JSON.parse(window.localStorage.getItem(StorageKeys.REMEMBER_ME));
   }
 
   get isAuthenticated(): Observable<boolean> {
@@ -80,6 +83,33 @@ export class AuthService {
   toggleKeepSigned(): void {
     this.keepSigned = !this.keepSigned;
     window.localStorage.setItem(StorageKeys.KEEP_SIGNED, this.keepSigned.toString());
+  }
+
+  /**
+   * Salva os dados para fazer o login (não seguro pq fica gravado no login do app)
+   */
+  toggleRememberMe(): void {
+    this.rememberMe = !this.rememberMe;
+    window.localStorage.setItem(StorageKeys.REMEMBER_ME, this.rememberMe.toString());
+    if (!this.rememberMe) {
+      window.localStorage.removeItem(StorageKeys.USER_EMAIL);
+      window.localStorage.removeItem(StorageKeys.USER_PASSWORD);
+    }
+  }
+
+  setRememberMe(user: { email: string, password: string }): void {
+    if (this.rememberMe) {
+      window.localStorage.setItem(StorageKeys.USER_EMAIL, Base64.encode(user.email));
+      window.localStorage.setItem(StorageKeys.USER_PASSWORD, Base64.encode(user.password));
+    }
+  }
+
+  getRememberMe(): { email: string, password: string } {
+    if (!this.rememberMe) { return null; }
+    return {
+      email: Base64.decode(window.localStorage.getItem(StorageKeys.USER_EMAIL)),
+      password: Base64.decode(window.localStorage.getItem(StorageKeys.USER_PASSWORD))
+    };
   }
 
   logout(): void {

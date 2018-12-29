@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: LoginRoutingModule
+  providedIn: LoginRoutingModule // fazendo a injeção inversa
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    console.log(state.url);
     return this.checkAuthState(state.url);
   }
 
@@ -25,6 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canLoad(route: Route): Observable<boolean> {
     const url = route.path;
     // no curso - const url = window.location.pathname
+    console.log(url);
     return this.checkAuthState(url)
       .pipe(take(1)); // take executa somente uma vez
   }
@@ -33,8 +35,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     return this.authService.isAuthenticated
       .pipe(
         tap(is => {
-          this.authService.redirectUrl = url;
-          this.router.navigate(['/login']);
+          if (!is) {
+            this.authService.redirectUrl = url;
+            this.router.navigate(['/login']);
+          }
         })
       );
   }

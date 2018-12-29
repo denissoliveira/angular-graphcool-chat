@@ -9,7 +9,10 @@ import {
   MatButtonModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatIconModule,
+  MatLineModule,
+  MatListModule
 } from '@angular/material';
 
 @NgModule({
@@ -18,7 +21,10 @@ import {
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
+    MatLineModule,
+    MatListModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatSnackBarModule,

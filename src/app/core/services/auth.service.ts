@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
-import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION } from './auth.graphql';
+import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION, LoggedInUserQuery, LOGGED_IN_USER_QUERY } from './auth.graphql';
 import { StorageKeys } from 'src/app/storage-keys';
 
 @Injectable({
@@ -30,6 +30,7 @@ export class AuthService {
     return this._isAuthenticated.asObservable();
   }
 
+  // logar
   signinUser(variables: {email: string, password: string}): Observable<{id: string, token: string}> {
     return this.apollo.mutate({
       mutation: AUTHENTICATE_USER_MUTATION,
@@ -44,6 +45,7 @@ export class AuthService {
     );
   }
 
+  // criar usuário
   signupUser(variables: {name: string, email: string, password: string}): Observable<{id: string, token: string}> {
     return this.apollo.mutate({
       mutation: SIGNUP_USER_MUTATION,
@@ -58,9 +60,25 @@ export class AuthService {
     );
   }
 
+  // opção de se manter logado
   toggleKeepSigned(): void {
     this.keepSigned = !this.keepSigned;
     window.localStorage.setItem(StorageKeys.KEEP_SIGNED, this.keepSigned.toString());
+  }
+
+  // valida do token do usuário
+  private validateToken(): Observable<{id: string, isAuthenticated: boolean}> {
+    return this.apollo.query<LoggedInUserQuery>({
+      query: LOGGED_IN_USER_QUERY
+    }).pipe(
+      map(res => {
+        const user = res.data.loggedInUser;
+        return {
+          id: user && user.id,
+          isAuthenticated: user !== null
+        };
+      })
+    );
   }
 
   private setAuthState(authData: {token: string, isAuthenticated: boolean}): void {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { ApolloModule, Apollo } from 'apollo-angular';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { StorageKeys } from '../storage-keys';
+import { GRAPHCOOL_CONFIG, GraphcoolConfig } from '../core/providers/graphcool-config.provider';
 
 @NgModule({
   declarations: [],
@@ -20,10 +21,11 @@ import { StorageKeys } from '../storage-keys';
 export class ApolloConfigModule {
   constructor (
     private apollo: Apollo,
+    @Inject(GRAPHCOOL_CONFIG) private graphcoolConfig: GraphcoolConfig,
     private httpLink: HttpLink
   ) {
 
-    const uri = 'www';
+    const uri = this.graphcoolConfig.simpleAPI;
 
     // como a variavel tem o mesmo nome não repcisa ser { uri:uri }
     const http = httpLink.create({ uri });

@@ -23,7 +23,7 @@ export class ApolloConfigModule {
     private httpLink: HttpLink
   ) {
 
-    const uri = 'https://api.graph.cool/simple/v1/cjpr7zirvmj2p0172uqx5c7oe';
+    const uri = 'www';
 
     // como a variavel tem o mesmo nome não repcisa ser { uri:uri }
     const http = httpLink.create({ uri });
